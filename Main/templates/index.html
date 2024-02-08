@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <title>My Website</title>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js" integrity="sha512-tE1z+95+lMCGwy+9PnKgUSIeHhvioC9lMlI7rLWU0Ps3XTdjRygLcy4mLuL0JAoK4TLdQEyP0yOl/9dMOqpH/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    </head>
+    <body style="text-align:center; font-family: 'Times New Roman', Times, serif; font-size: 15pt">
+
+        <script>
+            $(document).ready(function() {
+            var socket = io.connect("http://172.17.208.1:5000")
+            socket.on("connect", function() {
+                socket.send("User_Connected");
+            });
+
+            socket.on("message", function(data) {
+                $("#messages").append($("<p>").text(data));
+            });
+
+            $("#SendBttn").on("click", function () {
+                socket.send($("#username").val() + " : " + $("#message").val());
+                $("#message").val("");
+            });
+        })
+        </script>
+
+        <div id = "messages" style="margin: 0 auto; width: 30%; text-align: left; min-height: 200px">
+
+
+        </div>
+        <input type = "test" id="username" placeholder = "Username">
+        <input type = "test" id="message" placeholder = "Message">
+        <button id="SendBttn">Send Message</button>
+
+    </body>
+</html>

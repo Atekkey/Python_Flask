@@ -1,6 +1,9 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
 
+ip_desktop = "172.17.208.1"
+ip_mac = "127.0.0.1"
+
 app = Flask(__name__)
 app.config['SECRET'] = "my_secret"
 socketio = SocketIO(app, cors_allowed_origins = "*")
@@ -18,4 +21,4 @@ def index():
     return render_template("index.html")
 
 if (__name__ == "__main__"):
-    socketio.run(app, host = "172.17.208.1")
+    socketio.run(app, host = ip_mac)
